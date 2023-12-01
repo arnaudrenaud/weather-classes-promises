@@ -1,11 +1,11 @@
 import { Weather } from "./Weather";
 
 async function main() {
-  const parisWeather = new Weather("Paris");
-  const romeWeather = new Weather("Rome");
+  const frenchWeather = new Weather(["Paris", "Lyon"]);
+  const italianWeather = new Weather(["Rome", "Milan"]);
 
-  console.log(await parisWeather.getTemperatureForCity());
-  console.log(await romeWeather.getTemperatureForCity());
+  console.log(await frenchWeather.getTemperatureForCities());
+  console.log(await italianWeather.getTemperatureForCities());
 }
 
 main();

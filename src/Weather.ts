@@ -1,16 +1,16 @@
 import { throwError } from "./utils";
 
 export class Weather {
-  city: string;
+  cities: string[];
 
-  constructor(city: string) {
-    this.city = city;
+  constructor(cities: string[]) {
+    this.cities = cities;
   }
 
-  async getTemperatureForCity(): Promise<number> {
+  async getTemperatureForCity(city: string): Promise<number> {
     try {
       const geoResponse = await fetch(
-        `https://geocode.maps.co/search?q=${this.city}`
+        `https://geocode.maps.co/search?q=${city}`
       );
       const { lat, lon } = (await geoResponse.json())[0];
       const weatherResponse = await fetch(
@@ -20,10 +20,16 @@ export class Weather {
 
       return Math.round(weather.current.temperature_2m);
     } catch (error) {
-      throwError(
-        error,
-        `Error while fetching temperature for city ${this.city}`
-      );
+      throwError(error, `Error while fetching temperature for city ${city}`);
     }
+  }
+
+  async getTemperatureForCities(): Promise<
+    { city: string; temperature: number }[]
+  > {
+    return [];
+    // Promise.all
+    //  OU
+    // for (const … of this.cities)
   }
 }
