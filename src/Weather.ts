@@ -27,13 +27,15 @@ export class Weather {
   async getTemperatureForCities(): Promise<
     { city: string; temperature: number }[]
   > {
-    const temperatureForCities = this.cities.map(async (city) => {
-      return {
+    const temperatureForCities = [];
+
+    for (const city of this.cities) {
+      temperatureForCities.push({
         city,
         temperature: await this.getTemperatureForCity(city),
-      };
-    });
+      });
+    }
 
-    return Promise.all(temperatureForCities);
+    return temperatureForCities;
   }
 }
