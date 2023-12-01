@@ -4,8 +4,8 @@ async function main() {
   const parisWeather = new Weather("Paris");
   const romeWeather = new Weather("Rome");
 
-  console.log(await parisWeather.getWeatherForCity());
-  console.log(await romeWeather.getWeatherForCity());
+  console.log(await parisWeather.getTemperatureForCity());
+  console.log(await romeWeather.getTemperatureForCity());
 }
 
 main();

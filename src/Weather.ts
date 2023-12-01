@@ -1,11 +1,20 @@
 export class Weather {
+  city: string;
+
   constructor(city: string) {
-    // Conserver en attributs de l'objet les villes passées en argument
+    this.city = city;
   }
 
-  async getWeatherForCity() {
-    // retourne la météo de la première ville
-    // obtenir la latitude et la longitude de la ville : https://geocode.maps.co/search?q=Paris
-    // obtenir la météo pour ces coordonnées : https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m
+  async getTemperatureForCity(): Promise<number> {
+    const geoResponse = await fetch(
+      `https://geocode.maps.co/search?q=${this.city}`
+    );
+    const { lat, lon } = (await geoResponse.json())[0];
+    const weatherResponse = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m`
+    );
+    const weather = await weatherResponse.json();
+
+    return Math.round(weather.current.temperature_2m);
   }
 }
