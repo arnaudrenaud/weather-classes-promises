@@ -10,7 +10,7 @@ export class Weather {
   async getTemperatureForCity(city: string): Promise<number> {
     try {
       const geoResponse = await fetch(
-        `https://geocode.maps.co/search?q=${city}`
+        `https://geocode.maps.co/search?q=${city}&api_key=65a4fed00e84b807084661tisfc7f77`
       );
       const { lat, lon } = (await geoResponse.json())[0];
       const weatherResponse = await fetch(
